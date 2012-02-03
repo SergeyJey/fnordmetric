@@ -164,7 +164,9 @@ var FnordMetric = (function(){
           var _item = $('<div class="toplist_item"><div class="title"></div><div class="value"></div><div class="percent"></div></div>');
           $('.title', _item).html(gdata.values[n][0]);
           $('.value', _item).html(formatGaugeValue(gkey, parseInt(gdata.values[n][1])));
-          $('.percent', _item).html(_perc.toFixed(1) + '%');
+          if(!opts.hide_percent) {
+            $('.percent', _item).html(_perc.toFixed(1) + '%');
+          }
           _elem.append(_item);
         });
       }
