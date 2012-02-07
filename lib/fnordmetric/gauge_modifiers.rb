@@ -41,7 +41,7 @@ module FnordMetric::GaugeModifiers
   def incr_avg(gauge, value)
     @redis.incr(gauge.tick_key(time, :"value-count")).callback do
       incr_tick(gauge, value)
-    end
+    end if value
   end
 
   def incr_field(gauge_name, field_name, value=1)

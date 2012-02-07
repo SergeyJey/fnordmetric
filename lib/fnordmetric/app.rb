@@ -58,6 +58,10 @@ class FnordMetric::App < Sinatra::Base
   get '/' do
   	redirect "#{path_prefix}/#{@namespaces.keys.first}"
   end
+  
+  get '/health' do
+    "OK"
+  end
 
   get '/:namespace' do
     pass unless current_namespace
@@ -153,6 +157,7 @@ private
   end
 
   def track_event(event_id, event_data)
+    p event_data
     @redis.hincrby "#{@opts[:redis_prefix]}-stats",             "events_received", 1
     @redis.set     "#{@opts[:redis_prefix]}-event-#{event_id}", event_data.to_json
     @redis.lpush   "#{@opts[:redis_prefix]}-queue",             event_id

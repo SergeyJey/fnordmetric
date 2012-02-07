@@ -82,13 +82,13 @@ var FnordMetric = (function(){
     return value + '%';  
   }
 
-  function formatGaugeValue(gauge_key, value){
+  function formatGaugeValue(gauge_key, value, format_values){
     if(gauge_key.slice(0,8) === '__time__'){
       return formatTimeValue(value);
     } else if(gauge_key.slice(0,11) === '__percent__'){
       return formatPercentValue(value);
     } else {
-      return formatValue(value);
+      return (format_values ? formatValue(value) : value);
     }
   }
 
@@ -163,8 +163,10 @@ var FnordMetric = (function(){
           var _perc  = (parseInt(gdata.values[n][1]) / parseFloat(gdata.count))*100;
           var _item = $('<div class="toplist_item"><div class="title"></div><div class="value"></div><div class="percent"></div></div>');
           $('.title', _item).html(gdata.values[n][0]);
-          $('.value', _item).html(formatGaugeValue(gkey, parseInt(gdata.values[n][1])));
+          $('.value', _item).html(formatGaugeValue(gkey, parseInt(gdata.values[n][1]), opts.format_values));
+          if(!opts.hide_percent) {
           $('.percent', _item).html(_perc.toFixed(1) + '%');
+          }
           _elem.append(_item);
         });
       }

@@ -1,9 +1,12 @@
 class FnordMetric::ToplistWidget < FnordMetric::Widget
 
   def data
+    p @opts
     super.merge(
       :gauges => data_gauges,
-      :autoupdate => (@opts[:autoupdate] || 0)
+      :autoupdate => (@opts[:autoupdate] || 0),
+      :format_values => (@opts[:format_values] || 1),
+      :hide_percent => (@opts[:hide_percent] || false)
     )
   end
 
