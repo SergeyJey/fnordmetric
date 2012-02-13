@@ -17,9 +17,7 @@ class FnordMetric::Widget
   end
 
   def token
-    token = title.to_s.gsub(/[\W]/, '').downcase
-    token = Digest::SHA1.hexdigest(title.to_s) if token.empty?
-    token
+    Digest::SHA1.hexdigest(title.to_s)
   end
 
   def add_gauges(gauges)
