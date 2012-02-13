@@ -113,6 +113,7 @@ module FnordMetric
   # `:inbound_stream` starts the TCP interface
   # `:print_stats`    periodicaly prints worker stats
   def self.embedded(opts={})
+    log "--------------- STARTING ---------------"
     opts = default_options(opts)
     app  = nil
 
